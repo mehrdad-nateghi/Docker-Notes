@@ -1,12 +1,9 @@
-# docker-notes
-***
+# Docker Notes
 ## Sources ##
 Title  | Link
 ------------- | -------------
 The Ultimate Docker Course  | https://codewithmosh.com/p/the-ultimate-docker-course
-***
 ## Notes ##
-
 ### 1. What is docker? ###
 > Docker is a platform for consistently building, running, and shipping applications.
 ### 2. What do we have problems without docker? ###
