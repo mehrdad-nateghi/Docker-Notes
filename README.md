@@ -1,4 +1,4 @@
-# Docker Notes
+# Docker Notes [![Generic badge](https://img.shields.io/badge/NumberOfNotes-206-<COLOR>.svg)]()
 ## Sources ##
 Title  | Link
 ------------- | -------------
