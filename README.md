@@ -122,16 +122,36 @@ because win10 is now shipped with a custom-built Linux kernel.
 > - docker push YOUR_DOCKERHUB_NAME/firstimage
 ### 30. Docker is built on basic ... concept. ###
 > Linux
-### 31.  ###
-### 32.  ###
-### 33.  ###
-### 34.  ###
-### 35.  ###
-### 36.  ###
-### 37.  ###
-### 38.  ###
-### 39.  ###
-### 40.  ###
+### 31. Linux distributions called ... (5) ###
+> - distros
+> - Ubuntu / Debian / Alpine / Fedora / CentOS
+### 32. How to pull an image?(2) difference? ###
+> - docker pull ubuntu // just pull
+> - docker run ubuntu <br>
+if you have this image locally, Doker is going to start a cotainer with this image. Otherwise, it's going to pull the image behind the scene, and then start a container.
+### 33. docker run ubuntu <br> what happens after this command? solution? ###
+> Docker has started a container. But because we didn't interact with the container, the container stopped.
+> - docker run -it ubuntu
+### 34. see the list of running processes or running containers? (2) ###
+> - docker ps // show running
+> - docker ps -a // show all
+### 35. A ... is a program that takes our commands and passes them to the operating system for execution. ###
+> shell
+### 36. What's this? what does each part mean? <br> root@123:/# ###
+> - shell prompt
+> - root: currently logged user, by default we logged by the root user with the highest privileges.
+> - 123: name of the machine, ID of the container that automatically generates by docker.
+> - /: forward slash, where we are in the file system. / represents the root directory. the highest directory in the filesystem.
+> - #: number sign | pond sign | show I have the highest privileges = root user, $ means normal user
+### 37. We have a program called bash, which is short for .... So apparently, Steve Bourne is the first person who created a shell program, bash, or warning, and the shell is a reference to Steve Borne. So Bash is an enhanced version of the original shell program. ###
+> Bourne again shell
+### 38. cmd: Print a text in the command line ###
+> echo hello
+### 39. cmd: Show the current user ###
+> whoami
+### 40. cmd: Location of shell program
+###
+> echo $0 // /bin/bash
 ### 41.  ###
 ### 42.  ###
 ### 43.  ###
