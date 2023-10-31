@@ -6,7 +6,7 @@ The Ultimate Docker Course  | https://codewithmosh.com/p/the-ultimate-docker-cou
 ## Notes ##
 ### 1. What is docker? ###
 > Docker is a platform for consistently building, running, and shipping applications.
-### 2. What do we have problems without docker? ###
+### 2. What problems do we have without docker? ###
 > The app works on my machine but doesn't work somewhere.
 > 1. One or more files are missing and the app is not entirely deployed
 > 2. Software version mismatch
@@ -53,15 +53,93 @@ The Ultimate Docker Course  | https://codewithmosh.com/p/the-ultimate-docker-cou
 > - RESTful API
 > - Docker engine
 > - process
-### 11. ... ###
-### 12. ... ###
-### 13. ... ###
-### 14. ... ###
-### 15. ... ###
-### 16. ... ###
-### 17. ... ###
-### 18. ... ###
-### 19. ... ###
-### 20. ... ###
-### 21. ... ###
-### 22. ... ###
+### 11. What's the kernel? Every OS has its own ... or ... and these kernels have different ... That's why we cannot run a Windows application on Linux. ###
+> - The kernel is the core of an OS. It's like the engine of a car. It's the part that manages all applications as well as hardware resources like memory and CPU.
+> - kernel or engine
+> - APIs.
+### 12. run containers? Windows = ? Linux = ? Mac = ? ###
+> - Windows = Windows(share the windows kernel) + Linux(share the Linux kernel)
+because win10 is now shipped with a custom-built Linux kernel.
+> - Linux = only Linux containers
+> - Mac = doesn't have native support for containerized apps, use a lightweight Linux virtual VM to run Linux containers.
+### 13. Docker version? How can find it's correct? ###
+> - docker version
+> - client and server show information
+### 14. for Dockerize we need to add a... file to project. ###
+> - dockerfile
+### 15. it's a doc plain text file that includes instructions that docker uses to package up the application? into an ... ###
+> - dockerfile
+> - image
+### 16. contains everything our app needs to run. ex? 5 ###
+> - image
+> - a cut-down OS
+> - a runtime env (Node)
+> - App files
+> - Third-party library
+> - Env variables
+### 17. we have an ..., we tell docker to start a ... using that ... <br> ... is just a process, but it's a special kind of process because it has its own ... which is provided by the ... and our app gets loaded inside the ... or ... and this is how we run our app locally or in production ###
+> - image
+> - container
+> - image
+> - container
+> - file system
+> - image
+> - container or process
+### 18. instead of directly running the app on our development machine we tell ... to run it inside ... an isolated environment. ###
+> - Docker
+> - container
+### 19. we have an image. we can push it to a ... register like ... and anyone can use it. it's like ... for git. Then we can put it on any machine(TEST/PROD) ###
+> - Docker
+> - Docker hub
+> - github
+### 20. with docker, we no longer need to maintain long complex releases ... that have to be precisely followed. All the instructions for building an image of an app are written in a ... ###
+> - Documents
+> - Dockerfile
+### 21. name of docker file and extension? ###
+> - Dockerfile
+> - not extension
+### 22. Refactor <br> FROM node:alpine <br> COPY . /app <br> CMD node /app/app.js ###
+> - FROM node:alpine
+> - COPY . /app
+> - WORKDIR /app
+> - CMD node app.js
+### 23. build an image hello-docker 3 ###
+> - docker build -t hello-docker .
+> - docker buildx build -t hello-docker .
+> - docker image build -t hello-world .
+### 24. show list of images ###
+> docker image ls
+### 25. why in this command <br> Docker image <br> show the name of the image below the column called "repository" ###
+> because an image is like a repository in GitHub but actually it's on the docker hub.
+### 26. How run an image ###
+> docker run hello-docker
+### 27. How can play with docker online? website? ###
+> https://labs.play-with-docker.com/
+### 28. how to pull an image ###
+> docker pull mosh/hello-docker
+### 29. How to push an image? 2 ###
+> - docker tag firstimage YOUR_DOCKERHUB_NAME/firstimage
+> - docker push YOUR_DOCKERHUB_NAME/firstimage
+### 30. Docker is built on basic ... concept. ###
+> Linux
+### 31.  ###
+### 32.  ###
+### 33.  ###
+### 34.  ###
+### 35.  ###
+### 36.  ###
+### 37.  ###
+### 38.  ###
+### 39.  ###
+### 40.  ###
+### 41.  ###
+### 42.  ###
+### 43.  ###
+### 44.  ###
+### 45.  ###
+### 46.  ###
+### 47.  ###
+### 48.  ###
+### 49.  ###
+### 50.  ###
+
