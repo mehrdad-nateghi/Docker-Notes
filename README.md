@@ -118,8 +118,8 @@ because win10 is now shipped with a custom-built Linux kernel.
 ### 28. how to pull an image ###
 > docker pull mosh/hello-docker
 ### 29. How to push an image? 2 ###
-> - docker tag firstimage YOUR_DOCKERHUB_NAME/firstimage
-> - docker push YOUR_DOCKERHUB_NAME/firstimage
+> - docker tag local-image:tagname userName/imageName:tag
+> - docker push userName/imageName:tag
 ### 30. Docker is built on basic ... concept. ###
 > Linux
 ### 31. Linux distributions called ... (5) ###
@@ -149,17 +149,45 @@ if you have this image locally, Doker is going to start a cotainer with this ima
 > echo hello
 ### 39. cmd: Show the current user ###
 > whoami
-### 40. cmd: Location of shell program
-###
+### 40. cmd: Location of shell program ###
 > echo $0 // /bin/bash
-### 41.  ###
-### 42.  ###
-### 43.  ###
-### 44.  ###
-### 45.  ###
-### 46.  ###
-### 47.  ###
-### 48.  ###
-### 49.  ###
-### 50.  ###
+### 41. separate file & directory in Windows and linux ###
+> - linux = / forward slash
+> - windows = \ back slash
+### 42. Linux is case-sensitive (t/f) ###
+> - t
+> - check the name of the file & dir & cmd are correct!
+### 43. show history of executed command? 2 ###
+> - history
+> - !2
+### 44. Most OS and development platforms come with a ... (5) ###
+> - package manager
+> - npm
+> - yarn
+> - pip
+> - Nuget
+> - apt in Ubuntu
+### 45. Ubuntu package manager is ... ###
+> - apt // is newer
+> - apt-get // advanced package tool
+### 46. Install/remove nano ###
+> - apt update // update package DB
+> - apt install nano
+> - apt remove nano
+### 47. In Linux we have a package ... that might contain hundreds of packages, but not all these packages are installed If you want to see all the packages in this DB we run ... and for update DB we run ... ###
+> - database
+> - apt list
+> - apt update
+### 48. before installing a package, you should always run ... ###
+> apt update
+### 49. clear the screen(CLI) with ... ###
+> - clear command
+> - Ctrl + k
+### 50. In Linux, just like Windows are files and directories are organized in a ... in a ... structure. ###
+> - Tree
+> - Hierarchical
+### 207. Docker Login in CLI ###
+> docker login -u user-name
+### 208. ... ###
+> ...
 
