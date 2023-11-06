@@ -186,34 +186,110 @@ if you have this image locally, Doker is going to start a cotainer with this ima
 ### 50. In Linux, just like Windows are files and directories are organized in a ... in a ... structure. ###
 > - Tree
 > - Hierarchical
-### 51.  ###
-### 52.  ###
-### 53.  ###
-### 54.  ###
-### 55.  ###
-### 56.  ###
-### 57.  ###
-### 58.  ###
-### 59.  ###
-### 60.  ###
-### 61.  ###
-### 62.  ###
-### 63.  ###
-### 64.  ###
-### 65.  ###
-### 66.  ###
-### 67.  ###
-### 68.  ###
-### 69.  ###
-### 70.  ###
-### 71.  ###
-### 72.  ###
-### 73.  ###
-### 74.  ###
-### 75.  ###
-### 76.  ###
-### 77.  ###
-### 78.  ###
+### 51. hierarchical structure in windows? ###
+> we have a structure like this with C drive on top of the hierarchy. Then below that we have directories like Program Files, Windows, and so on.
+### 52. hierarchical structure in Linux? 9 ###
+> In Linux, we have the root directory on top of the hierarchy below and a bunch of standard directories.
+> 
+> bin / boot / dev / etc / home / root / lib / var / proc
+### 53. Which folder in Linux? <br> 1- includes binaries or programs <br> 2- includes all the files related to booting ###
+> 1. bin
+> 2. boot
+### 54. Which folder is in Linux? <br> it's short for devices. So in Linux, everything is a file, including devices, directories, network sockets, pipes, and so on. So the files that are needed to access devices stored in this directory ###
+> dev
+### 55. Which folder is in Linux? <br> this is short for ... So this is where we have configuration files. ###
+> editable text configuration (ETC)
+### 56. Which folder is in Linux? <br> This is where ... directories for users are stored. So on a machine with multiple users, each user is going to have a ... directory here. ###
+> home
+### 57. Which folder is in Linux? <br> We also have ... which is the home directory of the ... user, only the ... user can access this directory. ###
+> root
+### 58. Which folder is in Linux? <br> which is used for keeping library files like software library dependencies. ###
+> lib
+### 59. Which folder is in Linux? <br> which is short for ... And this is where we have files that are updated frequently, like lock files, application data, and so on. ###
+> variable / var
+### 60. Which folder is in Linux? <br> Includes files that represent running processes. ###
+> proc
+### 61. in Linux, everything is a ... <br> like processes, devices, even directories are ... ###
+> file, files
+### 62. CMD: Where we are in filesystem? ###
+> - PWD (print working directory)
+### 63.  CMD <br> 1- see the files and directories on multiple lines <br> 2- see the files and directories on item per line <br> 3- see the files and directories on long list ###
+> - ls
+> - ls -1
+> - ls -l
+### 64. CMD: change the current directory <br> relative , absolute? <br> level up 1 and 2 ###
+> relative pah is relative to where we are. So in this root directory, we have directories like bin, boot, and so on.
+cd etc/a
+>
+> an absolute path always starts from the root directory. cd /home/a
+> - cd ..
+> - cd ../..
+### 65. in ls cmd result. <br> 1- blue item is? <br> 2- white item is? ###
+> 1. directory
+> 2. file
+### 66. Which folder have the CMD? ###
+> bin. like PWD
+### 67. short way to go to the home dir? <br> tip? if we are a normal user or root user? ###
+> - cd ~
+> - normal user go to home
+> - root user go to root
+### 68. CMD: Create a directory ###
+> mkdir test
+### 69. cmd: rename and move files & directory ###
+> mv a /etc/b
+### 70. cmd: only create file ###
+> - touch a.txt
+> - touch a.txt b.txt
+### 71. how remove entire word in on step in CLI? ###
+> ctrl + w
+### 72. cmd: remove one or more files and remove dir ###
+> - rm a.txt
+> - rm a.txt b.txt
+> - rm *.txt
+> - rm -r dirName
+### 73. cmd: editing & viewing files 5 ###
+> - nano
+> - cat = concatenate
+> - more
+> - less
+> - head -n 5 a.txt
+> - tail -n 5 a.txt
+### 74. One of the important concepts in Linux is the concept of standard input and output. So standard input represents the ..., and standard output represents the .... But we can always change the source of the input or the output. This is called ... 2 ##
+> - keyboard
+> - screen
+> - redirection
+> - output <
+> - input >
+### 75. redirection ex <br> 1- what's i/o in this cmd: cat a.txt <br> 2- all content a.txt to b.txt (cat) <br> 3- all content a.txt to b.txt to c.txt (cat) <br> 4- add hello to a.txt (echo) <br> 5- result of ls long result to a.txt ###
+> 1. input keyboard(file) / screen
+> 2. cat a.txt > b.txt
+> 3. cat a.txt b.txt > c.txt
+> 4. echo hello > a.txt
+> 5. ls -l > a.txt
+### 76. <br> 1- search a string in a file with cmd? <br> 2- search "hello" in file1.txt <br> 3- search "Hello" in file1.txt // insensitive <br> 4- search "hello" in 2 files <br> 5- search "hello" in pattern <br> 6- search "hello" in the current directory <br> 7- search "hello" in a directory <br> 8- how can write it in another way <br> grep -i -r /etc ###
+> 1. grep = global regular expression print // it's mouthful
+> 2. grep hello file1.txt
+> 3. grep -i Hello file1.txt // I = case insensitive
+> 4. grep -i hello a.txt b.txt
+> 5. grep -i hello file*
+> 6. grep -i hello .
+> 7. grep -ir /etc
+> 8. grep -ir /etc = combine multiple options
+### 77. <br> 1- find the list of files & directories(+ hidden) recursively <br> 2- find only directory <br> 3- find only files <br> 4- find all files that start with f <br> 5- find all files that start with f (case insensitive) <br> 6- find all Python files and write the result in a file ###
+> 1. find
+> 2. find -type d
+> 3. find -type f
+> 4. find -type f -name "f*"
+> 5. find -type f -iname "F*"
+> 6. find / -type f - name "*.py" > files.txt
+### 78. <br> 1- chaining command and continue if exist error in one command <br> 2- If an existing error does not execute other commands <br> 3- make a directory test and if exists echo exists <br> 4- list files in /bin to less command <br> 5- split long commands in multiple lines ###
+> 1. mkdir test; cd test; echo done
+> 2. mkdir test && cd test && echo done
+> 3. mkdir test || echo "exists"
+> 4. pipeline = ls /bin | less
+> 5. mkdir hello;\
+cd hello;\
+echo done
 ### 79.  ###
 ### 80.  ###
 ### 81.  ###
@@ -235,7 +311,7 @@ if you have this image locally, Doker is going to start a cotainer with this ima
 ### 97.  ###
 ### 98.  ###
 ### 99.  ###
-### 100.  ###
+### 100. ###
 
 
 
