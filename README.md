@@ -1,8 +1,8 @@
 # Docker Notes [![Generic badge](https://img.shields.io/badge/Sources-1-<COLOR>.svg)]()            [![Generic badge](https://img.shields.io/badge/Notes-206-<COLOR>.svg)]()
 ## Sources ##
-Title  | Link
-------------- | -------------
-The Ultimate Docker Course  | https://codewithmosh.com/p/the-ultimate-docker-course
+Title  | Type | Link
+------------- | ------------- | -------------
+The Ultimate Docker Course  | Video | https://codewithmosh.com/p/the-ultimate-docker-course
 ## Notes ##
 ### 1. What is docker? ###
 > Docker is a platform for consistently building, running, and shipping applications.
@@ -290,33 +290,267 @@ cd etc/a
 > 5. mkdir hello;\
 cd hello;\
 echo done
-### 79.  ###
-### 80.  ###
-### 81.  ###
-### 82.  ###
-### 83.  ###
-### 84.  ###
-### 85.  ###
-### 86.  ###
-### 87.  ###
-### 88.  ###
-### 89.  ###
-### 90.  ###
-### 91.  ###
-### 92.  ###
-### 93.  ###
-### 94.  ###
-### 95.  ###
-### 96.  ###
-### 97.  ###
-### 98.  ###
-### 99.  ###
-### 100. ###
-
-
-
+### 79. just like we have variables in our programming languages, in Linux, we have ... variables, which we can set for storing configuration settings for our applications, or applications can read configuration settings from these environment variables. ###
+> environment
+### 80. <br> 1- see all env var <br> 2- see value of a var (2) <br> 3- How can set a var for the current session <br> 4- How can set a var persistently ###
+> 1. printenv
+> 2. printenv PATH / echo $PATH
+> 3. export DB_USER=mosh
+> 4. with nano
+echo DB_USER >> .bashrc
+### 81. env var HOSNAME generate automatically by ... ###
+> Docker
+### 82. which dir os search for cmd and programs ###
+> PATH env var
+### 83. start a container with ID ###
+> docker start -i ID
+### 84.every time a user logs in linux loads this command from the user's home directory? ###
+> user's personal startup file = .bashrc
+In this file we have write permanent env vars
+### 85. T/F store sensitive information in .bashrc ###
+> F
+### 86. all changes to bashrc file are only effective in the next terminal session. solution? 2 ###
+> 1. exit this session
+> 2. source ~/.bashrc
+### 87. a ... is an instance of a running program. ###
+> process
+### 88. See all running programs or processes & describe results ###
+> - 1- ps
+> - tty? teletype
+> - pts/0 = sudo terminal - first terminal
+> - open another terminal window pts/1
+> - time = each process consume CPU
+### 89. <br> 1- sleep terminal in 3 sec <br> 2- sleep 100 and put in background ###
+> 1. sleep 3
+> 2. sleep 100 &
+### 90. kill a process ###
+> kill PID ex: kill 89
+### 91. cmd for add, modify, and delete a user ###
+> - useradd / adduser
+> - usermod
+> - userdel
+### 92. each option of each cmd may have two options ###
+> - short with one hyphen ex: -m 
+> - long descriptive with two hypen ex: --create-home
+### 93. <br> 1- how to create a user and create home dir <br> 2- where is this user store? ###
+> 1. useradd -m john
+> 2. in the configuration file in ETC dir cat etc/passwd
+### 94. which data store here? etc/passwd ###
+> not store password, store user's account information
+### 95. where is this info stored and what does it mean? <br> John:x:1001:1002::/home/john:/bin/sh ###
+> etc/passwd = store user's account information
+> - user = john
+> - x = password stored somewhere
+> - 1001 = user-id
+> - 1002 = id of primary group
+> - /home/john = home dir of the user
+> - /bin/sh = old original shell program
+### 96. how can change /bin/sh to an enhanced version /bin/bash ###
+> usermod -s /bin/bash john
+### 97. where's the user's password? only access? ###
+> - etc/shadow // encrypted format
+> - for root user
+### 98. run docker with bash for john user ###
+> docker exec -it -u john container-id bash
+### 99. delete the user john ###
+> userdel john
+### 100. another cmd for add user is ... and what's different? which one is better for using in docker? why? ###
+> - useradd = original app / since we can't use interact with adduser 
+> - adduser = perl script is more interactive / add user, group with the same name, home dir, set password
+### 101. cmd for managing group 3 ###
+> groupadd / groupmod / groupdel
+### 102. <br> 1-add new group developers <br> 2- where's the new group? describe content ###
+> 1. groupadd developers
+> 2. /etc/group
+developers:x:1003
+name of the group and 1003 is the id of the group
+### 103. <br> 1- how add john to the developer group <br> 2- how change primary group of john ###
+> 1. usermod -G developers john
+> 2. usermod -g main john
+### 104. why do we need a group? ###
+> group is like a role and each role has many permissions. then each user can have many groups.
+### 105. each user of Linux has many groups? what are these? ###
+> one primary and many secondary groups
+### 106. show a list of groups of a user ###
+> groups john
+### 107. structure of permissions ###
+> - drwxr-xr-x
+> - it has 4 parts
+> - first letter form left
+> d = directory
+> f = file
+> - 3 groups that has 3 characters
+> - first group = for user who owns the file (root)
+> - second = for group who owns the file (root)
+> - third = for other
+> - in each group has 3 chars
+> - first = r = read
+> - second = w = write
+> - third = x = execute
+> - fourth = - = nothing
+### 108. what does x permission mean for the directory? ###
+> go to dir with cd
+### 109. all directory has this permission? ###
+> x
+### 110. in chmod how can set for which one group we want to change mode? ###
+> - u = user
+> - g = group
+> - o = other
+### 111. add x permission to user ###
+> chmod u+x
+### 112. green file in ls cmd mean? ###
+> execute file like deploy.sh
+### 113. how can add x and w and remove r to other and group? ###
+> chmod og+x+w-r a.txt
+### 114. When we create two containers with the same image, we have? ###
+> two different containers with their own file system. and hidden from other container. we will learn about share data between container.
+### 115. Dockerfile instructions <br> for specifying the base image. So we take that base image which contains a bunch of files and directories, and then we build on top of it. ###
+> FROM
+### 116. Dockerfile instructions <br> for specifying the working directory. Once we use this command, all the following commands will be executed in the current working directory. ###
+> WORKDIR
+### 117. Dockerfile instructions <br> we have ... and ... for copying files and directories. ###
+> - COPY
+> - ADD
+### 118. Dockerfile instructions <br> for executing operating system commands. So all the Linux commands that we talked about in the previous section, you can execute them using ... Now if you're on Windows, you can execute Windows commands using ... as proc. ###
+> RUN
+### 119. Dockerfile instructions <br> for setting environment variables ###
+> ENV
+### 120. Dockerfile instructions <br> for telling Docker, that our container is starting on a given port ###
+> EXPOSE
+### 121. Dockerfile instructions <br> for specifying the user that should run the application. Typically, we want to run our application using a user with limited privileges. ###
+> USER
+### 122. Dockerfile instructions <br> ... & ... for specifying the command that should be executed when we start a container. ###
+> - CMD
+> - ENTRYPOINT
+### 123. ... can be an operating system like Linux or Windows, or it can be an operating system plus a runtime environment. ###
+> The base image / FROM ...
+### 124. Where can I find the sample base image? ###
+> https://docs.docker.com/samples/
+### 125. <br> Where we type full url for the base image? <br> and Why don't set a full url? and Why we don't set node:latest ###
+> - it doesn't exist in docker hub for ex: mcr.microsoft.com/image / mcr: microsoft container registery
+> - since it can be change. it's better set specific version. even not latest since our app can not run with the latest version
+### 126. tip about the base image <br> 1- os/arch <br> 2- compress size ###
+> - docker automatically sets the right image with os/arch
+> - it's compress size and after download it can be more than it.
+### 127. <br> 1- build image for react-app <br> 2- run image & run shell ###
+> 1. docker build -t tag-react-app .
+    . = where is the docker file
+> 2. docker run -it tag-react-app sh
+### 128. base image is = node:alipne <br> run this = 2- docker run -it tag-react-app bash <br> ? ###
+> error
+> apline has not bash
+> we should write = sh
+### 129. build context? ###
+> docker build -t imageName .
+A period (.) means the current directory. So when we execute this command, Docker client sends the content of this directory to Docker engine. This is called the build context. So Docker client sends the build context to Docker engine, and then Docker engine will start
+executing these commands one by one. So at that point, Docker
+engine does not have access to any files, or directories out this directory.
+### 130. Docker instruction <br> COPY <br> 1- copy package.json to /app <br> 2- if /app not exists? <br> 3- copy a.txt b.txt to /app <br> 4- copy a.txt b.txt to /app (t/f) <br> 5- copy all file "a*.txt" to /app <br> 6- copy everything from the current directory to /app <br> 7- how can set a relative path? tip? we can replace it with ... <br> 8- copy hello world.txt to . ###
+> 1. COPY package.json /app
+> 2. Docker create it automatically
+> 3. COPY a.txt b.txt /app/
+> 4. if we set one more file we should add / in the end of destination (3 is correct)
+> 5. COPY a*.txt /app/
+> 6. COPY . /app/
+> 7. WORKDIR /app // all cmd after this run in /app
+> replace it with .
+> COPY . .
+> 8. COPY ["hello world.txt","."] // each item show an argument of copy cmd
+### 131. What's diff between ADD & COPY <br> which one is safer? ###
+> - add has two more features
+> 1. copy from URL
+ADD HTTP://.../... /app
+> 2. uncompress zip automatically
+ADD TTP://.../a.zip /app
+> - safer= copy
+### 132. When we set WORKDIR /app <br> When we run = docker run -it app sh <br> PWD? ###
+> /app
+### 133. How to exclude node_modules folder in docker ###
+> - in .dockerignore add node_moduels/
+> - dockerignore = all lowercase
+### 134. execute <br> npm install in docker file ###
+> RUN npm install
+### 135. if the base image is alpine <br> if we RUN apt install <br> then? ###
+> we get an error since alpine doesn't have apt it has apk
+### 136. Set env variable (2) <br> API_URL http://api.myapp.com <br> which way is better ###
+> 1. ENV API_URL=http://api.myapp.com
+> 2. ENV API_URL http://api.myapp.com
+> - 1 IS BETTER
+### 137. How to define: container listen to port 3000 ###
+> in dockerfile: EXPOSE 3000
+### 138. docker default run image by ... user ###
+> root
+### 139. in alpine <br> 1- add user app <br> 2- add it to app group primary <br> 3- create a system user <br> 4- set all commands run by this user ###
+> - RUN addgroup app && adduser -S -G app app
+> - USER app
+### 140. defining a group , a user and set user must be placed at the ... of the docker file otherwise we should get a permission error. ###
+> top
+### 141.  ###
+### 142.  ###
+### 143.  ###
+### 144.  ###
+### 145.  ###
+### 146.  ###
+### 147.  ###
+### 148.  ###
+### 149.  ###
+### 150.  ###
+### 151.  ###
+### 152.  ###
+### 153.  ###
+### 154.  ###
+### 155.  ###
+### 156.  ###
+### 157.  ###
+### 158.  ###
+### 159.  ###
+### 160.  ###
+### 161.  ###
+### 162.  ###
+### 163.  ###
+### 164.  ###
+### 165.  ###
+### 166.  ###
+### 167.  ###
+### 168.  ###
+### 169.  ###
+### 170.  ###
+### 171.  ###
+### 172.  ###
+### 173.  ###
+### 174.  ###
+### 175.  ###
+### 176.  ###
+### 177.  ###
+### 178.  ###
+### 179.  ###
+### 180.  ###
+### 181.  ###
+### 182.  ###
+### 183.  ###
+### 184.  ###
+### 185.  ###
+### 186.  ###
+### 187.  ###
+### 188.  ###
+### 189.  ###
+### 190.  ###
+### 191.  ###
+### 192.  ###
+### 193.  ###
+### 194.  ###
+### 195.  ###
+### 196.  ###
+### 197.  ###
+### 198.  ###
+### 199.  ###
+### 200.  ###
+### 201.  ###
+### 202.  ###
+### 203.  ###
+### 204.  ###
+### 205.  ###
+### 206.  ###
 ### 207. Docker Login in CLI ###
 > docker login -u user-name -p password
-### 208. ... ###
-> ...
 
