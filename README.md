@@ -614,38 +614,211 @@ latest/ development / production or staging
 ### 174. How can place volume in the cloud ###
 > there's a driver for it we can find it.
 in docker volume inspect drive = local mean local host
-### 175.  ###
-### 176.  ###
-### 177.  ###
-### 178.  ###
-### 179.  ###
-### 180.  ###
-### 181.  ###
-### 182.  ###
-### 183.  ###
-### 184.  ###
-### 185.  ###
-### 186.  ###
-### 187.  ###
-### 188.  ###
-### 189.  ###
-### 190.  ###
-### 191.  ###
-### 192.  ###
-### 193.  ###
-### 194.  ###
-### 195.  ###
-### 196.  ###
-### 197.  ###
-### 198.  ###
-### 199.  ###
-### 200.  ###
-### 201.  ###
-### 202.  ###
-### 203.  ###
-### 204.  ###
-### 205.  ###
-### 206.  ###
+### 175. run docker <br>  1- detach mode <br> 2- map 4000 to 3000 <br> 3- map volume app-data to /app/data
+###
+> docker run -d -p 4000:3000 -v app-data:/app/data name-image
+### 176. docker run -d -p 4000:3000 -v app-data:/app/data name-image <br> what's the problem if the data directory does not exist? ###
+> docker creates it automatically but it does not have the right permission to write.
+it's better we make it before in docker file after user app after workdir
+run mkdir data
+### 177. How can share a volume between many containers ###
+> map all container to one folder
+### 178. Copying files between the host and containers 2 ###
+> - docker cp source destination
+> - docker cp <containerID>:/app/log.txt .
+> - docker cp secret.txt <containerID>:/app
+### 179. Sharing source code with containers <br> 1-for production <br> 2- for development (3 way) which on is the best ###
+> 1. build a new image
+> 2. build a new image
+> - copy files
+> - map /project(host) to /app(container) = is the best
+### 180. Sharing source code with containers - cmd ###
+> docker run -v $(pwd):/app <image>
+### 181. ... built-in on top of the docker engine. it installs by default with docker desktop for Win & Mac. it helps to ... we can check the version of it by ... ###
+> - docker-compose
+> - start the app with multiple containers
+> - docker-compose --version
+### 182. clean up workspace (images / containers) <br> - in cli <br> - in docker desktop ###
+> - docker container rm -f $(docker container ls p -aq)
+> - docker image rm -f $(docker image ls p -q)
+> - clean / purge data
+### 183. convert it to yaml ###
+```json
+{
+"name": "Docker",
+"boolean": true,
+"tags": ["software", "devops"],
+"number": 123,
+"object": {
+"a": "b",
+"c": "d"
+},
+}
+```
+```yaml
+---
+name: Docker
+boolean: true
+tags:
+- software
+- devops
+number: 123
+object:
+a: b
+c: d
+```
+### 184. parsing ... file is slower than ... file. because the parser doesn't know the price: 149 is a string or number. It reads everything as a string and tries to evaluate it. but in ... all value has type ex: "name": "ali" is a string and don't need to evaluate it. ###
+> - yaml
+> - JSON
+> - JSON
+### 185. Describe ###
+```yaml
+describe
+
+version: "3.8"
+
+services:
+  frontend:
+    depends_on: 
+      - backend
+    build: ./frontend
+    ports:
+      - 3000:3000
+
+  backend: 
+    depends_on: 
+      - db
+    build: ./backend
+    ports: 
+      - 3001:3001
+    environment: 
+      DB_URL: mongodb://db/vidly
+    command: ./docker-entrypoint.sh
+
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - vidly:/data/db
+
+volumes:
+  vidly:
+```
+```yaml
+version: "3.8" // use the latest version
+
+services:
+  frontend:
+    depends_on: 
+      - backend
+    build: ./frontend // where's dockerfile
+    ports:
+      - 3000:3000
+
+  backend: 
+    depends_on: 
+      - db
+    build: ./backend
+    ports: 
+      - 3001:3001
+    environment: 
+      DB_URL: mongodb://db/vidly
+    command: ./docker-entrypoint.sh
+
+  db:
+    image: mongo:4.0-xenial // download image
+    ports:
+      - 27017:27017 // default port
+    volumes:
+      - vidly:/data/db // /data/db default path of mongodb
+
+volumes:
+  vidly:
+```
+### 186. all command we use with docker, we can use with docker-compose and different? ex? ###
+> - docker build
+> - docker-compose build
+> - docker-compose run on multiple containers
+### 187. docker composer - by all images prefixed with the name of ... ex? ###
+> - application
+> - vidly_api / vidly_web
+### 188. force rebuild the image with docker compose ###
+> docker-compose build --no-cache
+### 189. docker-compose ps <br> docker ps ###
+> - show all containers in this app
+> - show all containers from all app
+### 190. start and stop the project by docker compose <br> start and build and detach mode? ###
+> - docker-compose up
+> - docker-compose up --build -d
+> - docker-compose down
+### 191. meaning of column "command " in this cmd? <br> docker-compose ps ###
+> which command is use to run the service
+### 192. docker-compose ... create a network and add our ... on that network. So these ... (2) can talk to each other with their ... ###
+> - automatically
+> - containers
+> - containers / host(API,web,db)
+> - name (API,web,db)
+### 193. where can we see the name of the network? (2) ###
+> - docker-compose up -d
+> - can see the default name of the network: vidly_default
+> - docker network ls
+### 194. ping API from web, what happened under the hood? ###
+> - docker exec -it -u root conainerID sh
+ping API
+> - docker comes with an embedded DNS server that contained the name and IP of containers.
+Inside each container we have a component called the DNS resolver that talks to the DNS server to find the IP of target container.
+> - ping API
+> - 1. DNS resolver asks from DNS server: IP of API?
+> - 2. DNS server answers: ip
+### 195. each container has an ... address that is part of a network. ###
+> IP
+### 196. cmd: see IP of current container ###
+> ifconfig
+### 197. docker-compose <br> 1- show all logs of the container of the app <br> 2- only web container ###
+> 1. docker-compose logs
+> 2. docker logs containerIdOfweb -f
+### 198. docker-compose <br> publish changes for API with volume ###
+```yaml
+API:
+volumes:
+- ./backend:/app
+```
+### 199. <br> 1- overwrite cmd in docker file in docker-compose.yml <br> 2- run migrate mongo & npm start <br> 3- solve the problem. <br> 4- refactor ###
+> 1. command
+> 2. command: migrate-mongo up && npm start
+> 3. command: ./wait-for db:27017 && migrate-mongo up && npm start
+> 4. command: ./docker-entrypoint.sh
+### 200. run test inside the app is ... it's better run a ... for run test. ex?  ###
+> - slow
+> - a new service = container
+```yaml
+web-test:
+image: vidly_web
+volumes:
+- ./frontend:/app
+  command: npm test
+```
+### 201. To deploy our dockerized application we have ... options. ? ###
+> 1. Single-host deployment
+> 2. Cluster deployment: a group of servers
+### 202. single-host vs cluster deployment ###
+> - single-host: deployment is easy / server down our app will not be accessible / if our users grow then our server cannot handle that load.
+> - cluster: get high availability and scalability.
+### 203. run cluster needs special tools called ... docker has its own tool and built-in that is called ... but it's not popular and most people use ... ###
+> - orchestration
+> - Docker swarm
+> - Kubernetes: google product
+### 204. VPS options? ###
+> - virtual private server
+> - Digital Ocean
+> - Google Cloud Platform(GCP)
+> - Microsoft Azure
+> - Amazon Web Services (AWS)
+### 205. What's a docker machine? download? ###
+>docker-machine on the dev device talks to the docker engine on the server. we can run the docker cmd in our cli and our cmd sent to docker engine on our server.
+> - https://github.com/docker/machine/releases
+### 206. we need create another docker compose file for production. name? ###
+> docker-compose.prod.yml
 ### 207. Docker Login in CLI ###
 > docker login -u user-name -p password
-
