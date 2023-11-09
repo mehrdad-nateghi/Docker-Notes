@@ -485,40 +485,135 @@ ADD TTP://.../a.zip /app
 > - USER app
 ### 140. defining a group , a user and set user must be placed at the ... of the docker file otherwise we should get a permission error. ###
 > top
-### 141.  ###
-### 142.  ###
-### 143.  ###
-### 144.  ###
-### 145.  ###
-### 146.  ###
-### 147.  ###
-### 148.  ###
-### 149.  ###
-### 150.  ###
-### 151.  ###
-### 152.  ###
-### 153.  ###
-### 154.  ###
-### 155.  ###
-### 156.  ###
-### 157.  ###
-### 158.  ###
-### 159.  ###
-### 160.  ###
-### 161.  ###
-### 162.  ###
-### 163.  ###
-### 164.  ###
-### 165.  ###
-### 166.  ###
-### 167.  ###
-### 168.  ###
-### 169.  ###
-### 170.  ###
-### 171.  ###
-### 172.  ###
-### 173.  ###
-### 174.  ###
+### 141. 1- How can run the app with this "npm start" (2) <br> 2- If we have some CMD in the docker file, which one runs? ###
+> 1. docker run app npm start
+in docker file = CMD npm start
+> 2. the latest
+### 142. Run vs CMD ###
+> - Run = run at the time of building the image
+> - CMD = runtime, executed when starting a container
+### 143. Describe shell form and execute form for CMD. and differences? which one is better? ###
+> - shell form = CMD npm start
+docker will execute this inside a separate shell
+in Linux(/bin/sh)
+in windows(cmd)
+> - Exec form = CMD ["npm","start"]
+it's better
+run directly, there no need to spin off the shell
+### 144. CMD vs ENTRYPOINT ###
+> - both have shell and exec form
+cmd = We can change the default cmd
+docker run app sh
+> - for entrypoint we should run it for change
+docker run app --entrypoint sh
+> - cmd(exec form) it's better and simple for use
+### 145. if docker file changed, we must ... image again. ###
+> build
+### 146. An image is collection of ..., that is ... that only includes ... files ###
+> - layers
+> - small file systems
+> - modified
+### 147. How docker create layer?
+###
+> execute each instruction in docker file and create a new layer. The layer is result of the instruction.
+### 148. some instruction may be have many layers for ex?
+###
+> FROM node:1 
+> 
+> since multiple files modified
+### 149. How to show layers of the image? ###
+> Docker history imageName
+### 150. describe optimization when build an image that docker uses. ex? ###
+> if it has not changed then docker uses this layer from cache.
+> before 
+> - COPY . . 
+> - RUN npm install <br>
+> after
+> - COPY package*.json
+> - RUN npm install
+> - COPY . .
+### 151. RUN npm update <br> docker rebuild or not? ###
+> Always rebuild
+### 152. Where we can see docker use cache for an instruction or not? ###
+> When we build an image we can show log
+CACHED [2/6]
+### 153. the best strategy for write docker file for optimization ###
+> - stable instructions (top) ... Changing instructions
+### 154. <br> 1. How to remove the unused image(dangling) <br> 2. How to remove the unused container(dangling) <br> 3. How to remove app image ###
+> 1. docker image prune
+> 2. docker container prune
+> 3. docker image rm app name2 name3
+### 155. whenever we build an image or pull it from the Docker hub, by default, docker uses the ... tag. it's just a label and it doesn't mean it's the ... version of the image. if you don't tag your image properly, ... can point to an older version. the ... tag fine for ... and you shouldn't use it for or ... ###
+> latest
+latest/ development / production or staging
+### 156. tag an image (2) ###
+> 1. when we build it
+> - docker build -t app:buster . / app:1.2.3 / app:88
+> - docker images / we see 2 tags latest and new tag then = docker image remove app:88
+> 2. after build
+> - docker images tag app:latest[image id] app:88
+### 157. It's so important when we have an image with tag 88 and the latest and build another image with a new tag, latest doesn't point to a new image. we should point latest to new image How? ###
+> docker image tag app:99 app:latest
+### 158. We can create a repository in docker hub and connect it to github or bitbucket. and every time we push new code. docker hub ... pull the latest code and build a new image. ###
+> automatically
+### 159. How to push the image to docker hub ###
+> 1. create a repo = mnateghi/app
+> 2. docker image tag app:2 mnateghi:2
+> 3. docker login
+> 4. docker push mnateghi/app:2
+### 160. Saving and loading image ###
+> - saving: docker image save -o app-image.tar app:3
+> - load: docker image load -i app-image.tar
+### 161. running container <br> 1. simple <br> 2. run in the background <br> 3. to give a custom name <br> 4. to publish a port HOST:CONTAINER ###
+> 1. docker run <image>
+> 2. docker run -d <image>
+> 3. docker run —name <name> <image>
+> 4. docker run —p 3000:3000 <image>
+### 162. Viewing the logs <br> 1- simple just show and close <br> 2- to follow the log <br> 3- to add timestamps <br> 4- to view the last 10 lines ###
+> 1. docker logs <containerID>
+> 2. docker logs -f <containerID>
+> 3. docker logs —t <containerID>
+> 4. docker logs —n 10 <containerID>
+### 163. Docker exec vs run ###
+> - run = start a container
+> - exec = executing in running container
+### 164. Executing commands in running containers. <br> execute a cmd shell ###
+> - docker exec <containerID> <cmd>
+> - ex: docker exec -it <containerID> sh
+### 165. when you execute a cmd in running container in interactive mode and you exit, the container is ... ###
+> is running and not stop
+### 166. Starting and stopping containers ###
+> - docker stop containerID
+> - docker start containerID
+### 167. docker start vs run ###
+> - start = start a stopped container
+> - run = start a new container
+### 168. Removing containers <br> 1- long cmd <br> 2- short cmd <br> 3- to force the removal of the running container <br> 4- to remove stopped containers ###
+> 1. docker container rm <containerID>
+> 2. docker rm <containerID>
+> 3. docker rm -f <containerID> # to force the removal
+> 4. docker container prune # to remove stopped containers
+### 169. search in all name of container for c1 ###
+> docker ps -a | grep c1
+### 170. each container has its own ... that is invisible to other containers. When we delete a container all ... also delete. we don't save data in ... we use ... ###
+> - file system
+> - files
+> - container
+> - volume
+### 171. ... is a storage outside of the container. It can be a ... on the host or somewhere on the ... ###
+> - Volume
+> - Directory
+> - Cloud
+### 172. Volumes <br> 1- list <br> 2- create <br> 3- inspect for <br> 4- map host dir to image when run image ###
+> 1. docker volume ls
+> 2. docker volume create app-data
+> 3. docker volume inspect app-data
+> 4. docker run -v app-data:/app/data <image>
+### 173. Where we can see this info about <br> - volume <br> - driver <br> - mountpoint <br> scope and etc ###
+> docker image inspect
+### 174. How can place volume in the cloud ###
+> there's a driver for it we can find it.
+in docker volume inspect drive = local mean local host
 ### 175.  ###
 ### 176.  ###
 ### 177.  ###
