@@ -3,6 +3,7 @@
 Title  | Type | Link
 ------------- | ------------- | -------------
 The Ultimate Docker Course  | Video | https://codewithmosh.com/p/the-ultimate-docker-course
+The Docker Tutorial  | Video | https://laracasts.com/series/the-docker-tutorial
 ## Notes ##
 ### 1. What is docker? ###
 > Docker is a platform for consistently building, running, and shipping applications.
@@ -822,3 +823,5 @@ volumes:
 > docker-compose.prod.yml
 ### 207. Docker Login in CLI ###
 > docker login -u user-name -p password
+### 208. Linux distribution info ###
+> cat /etc/os-release
